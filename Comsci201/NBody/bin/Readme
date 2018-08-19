@@ -1,0 +1,21 @@
+Name: Kangnan Li
+NetID: kl186
+Hours Spent: 6 h
+Consulted With: Qiwei Han.
+Resources Used: basic java library from Oracle website
+Impressions:  Have not understand the main function yet
+
+Question 1: What is the final position of the planets after 1,000,000
+seconds with a timestep of 25,000?
+/Users/kangnanli/Documents/workspace/NBody/data/planets.txt
+Opening: planets.txt.
+1.4657072579675333E11 2.9603571820026024E10 
+2.265919409244593E11 2.4055025673504623E10 
+3.863596759797241E10 4.2569286276404396E10 
+26826.758124022024 2979.2451384889378 
+1.0243682251001347E11 3.4391417962295876E10 
+
+Question 2: For what values of timeStep, does the simulation no longer behave correctly? 
+for  int time = 10000000;
+        StepTime could be as long to the biggest int number the computer could tolerate.
+ 
