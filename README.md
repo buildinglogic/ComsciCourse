@@ -5,12 +5,16 @@ This repo will include projects for computer science courses took at Duke.
 
 Course related: 
 
-Comsci 201: Data structure and algo (Java)
-  Hoffman
-  AutoComplete
-  Nbody
-  Markov
-Comsci 310: Intro to Operating System
-Comsci 510: Operating System
-Comsci 570: Artificial Intelligence
-Comsci 590: Parallel Programming
+# Comsci 201: Data structure and algo (Java)
+  *Hoffman
+  *AutoComplete
+  *Nbody
+  *Markov
+
+# Comsci 310: Intro to Operating System
+ 
+# Comsci 510: Operating System
+
+# Comsci 570: Artificial Intelligence
+
+# Comsci 590: Parallel Programming
