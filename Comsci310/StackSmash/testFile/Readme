@@ -1,0 +1,10 @@
+%% to compile to .s file
+gcc -S -o example1.s example1.c
+
+%% to compile asm with gcc
+gcc -o shellcodeasm -m32 -g -ggdb shellcodeasm.c
+
+
+%% to complie testshellcode.c
+gcc -m32 -z execstack -fno-stack-protector testshellcode.c -o testshellcode
+//gcc -o testshellcode -m32 -g -ggdb testshellcode.c

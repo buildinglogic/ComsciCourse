@@ -1,0 +1,5 @@
+Take the following steps to compile and extract the byte code.
+steve hanna@1337b0x:~$ nasm -f elf exit.asm
+steve hanna@1337b0x:~$ ld -m elf_i386 -s -o exiter exit.o
+steve hanna@1337b0x:~$ objdump -d exiter
+
