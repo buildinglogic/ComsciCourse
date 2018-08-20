@@ -1,0 +1,21 @@
+Cilkview Scalability Analysis for Cilk Parallel Region(s)
+Executed command: /home/kl186/OMP/Ploop
+Ideal Parallelism,159.607768
+
+# Cores,Burdened Parallelism,Measured Parallelism
+1,1.000000,
+2,1.900000,
+3,2.832621,
+4,3.674328,
+5,4.471555,
+6,5.227737,
+7,5.945965,
+8,6.629026,
+9,7.279441,
+10,7.899496,
+11,8.491268,
+12,9.056650,
+13,9.597368,
+14,10.115001,
+15,10.610997,
+16,11.086685,

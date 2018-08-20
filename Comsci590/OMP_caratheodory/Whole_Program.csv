@@ -1,0 +1,21 @@
+Cilkview Scalability Analysis for Whole Program
+Executed command: /home/kl186/OMP/Ploop
+Ideal Parallelism,3.104740
+
+# Cores,Burdened Parallelism,Measured Parallelism
+1,1.000000,
+2,1.281691,
+3,1.414509,
+4,1.491804,
+5,1.542374,
+6,1.578036,
+7,1.604536,
+8,1.625002,
+9,1.641284,
+10,1.654547,
+11,1.665559,
+12,1.674848,
+13,1.682790,
+14,1.689657,
+15,1.695654,
+16,1.700937,

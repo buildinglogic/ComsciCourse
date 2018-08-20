@@ -1,0 +1,141 @@
+close all
+clear all
+clc
+
+rng('default')
+L = 80; % sparsity
+S = 16; % reconstruction size
+
+% setup params for the spams OMP
+% params.L = 80;
+% params.eps = 0;
+% params.lambda = 0;
+% params.numThreads = -1;
+
+data1 = load('Dictionary'); % load dictionary
+D0 = data1.Dictionary; 
+data3 = load('Speckle'); % load speckle data
+GT = data3.obj_cube;
+
+% parameters for patches
+B = [16,16,4]; % Patch size
+d = [4,4,4]; % Patch skip (1=fully overlapping, B = nonoverlapping)
+pxfrac = 0.5;
+% decide problem size
+img0 = GT(1:S,1:S,:);
+[M1,M2,M3] = size(img0);
+M = [M1,M2,M3];
+
+% setup patch stuff for measurements and reconstruction
+patchRec = Patchifier(M, B, d);
+patchMeas = Patchifier(M(1:2), B(1:2), d(1:2));
+
+% generate mask
+sensingMask = rand(M) > pxfrac;
+% generate compress measurements
+img = sum(sensingMask.*img0,3);
+
+X = patchMeas.getPatches(img); % brake compress measureent into small patches
+% X = patchRec.getPatches(img);
+[Q,N] = size(X);
+
+% get mask for each patch
+% H_3D = sparse(logical(patchRec.getPatches(sensingMask)));
+H_3D = patchRec.getPatches(sensingMask);
+K = size(D0,2);
+S = zeros(K*M3,N);
+D = blkdiag(D0,D0,D0,D0);
+
+% column normalization of D
+% for i = 1:size(D,2)
+%     D(:,i) = D(:,i)/norm(D(:,i),2);
+% end
+
+% INPUTS
+% x         - input signal
+% dict      - dictionary
+% D         - dictionary Gramian
+% dictTx    - dict'*x
+% natom     - stopping crit. 1: max number of iterations
+% tolerance - stopping crit. 2: minimum norm residual
+%
+%=%=%=%=%=%=%=%=%=%=%=%=%=%=%=%=%=%=%=%=%=%=%=%=%=%=%
+% OUTPUTS
+% s  - solution to x = dict*s
+
+
+tic
+for i=1:N
+    Hi = [];
+    for j=1:M3 
+        Hi = [ Hi, diag(H_3D((1:Q)+(j-1)*Q,i)) ]; 
+    end
+    S(:,i) = OMP(Hi*D, X(:,i), L);   
+%%%% downloaded, only run once, need to be solved
+%     S(:,i) = OMP_Cholesky(X(:,i), Hi*D, (Hi*D)'*(Hi*D), (Hi*D)'*X(:,i), L, 1e-12);
+%     S(:,i) = OMP_QR(X(:,i), Hi*D, (Hi*D)'*(Hi*D), (Hi*D)'*X(:,i), L, 1e-6);
+%     S(:,i) = OMP_MIL(X(:,i), Hi*D, (Hi*D)'*(Hi*D), (Hi*D)'*X(:,i), L, 1e-6);
+%%%% complied, only run once, similar problem maybe
+%     S(:,i) = mexOMP(X(:,i), Hi*D, params);       
+end
+toc
+
+
+
+
+% put image together from learned dictionary and weights
+Xrecon = D*S;
+imgRecon = patchRec.makeImage(Xrecon);
+
+for i = 1:4
+    figure;  
+    subplot(1,2,1); imagesc(img0(:,:,i)); axis equal;
+    subplot(1,2,2); imagesc(imgRecon(:,:,i)); axis equal;
+end
+
+
+%compute error
+% PSNR = psnr(imgRecon/max(imgRecon(:)), img0/max(img0(:)))
+% MSE = mse(imgRecon(:)/max(imgRecon(:)), img0(:)/max(img0(:)))
+% RMSE = sqrt(MSE)
+
+% Y = img; C = sensingMask;
+% save('compare.mat','Y','C');
+
+% for i = 1:4
+%     figure; 
+%     subplot(1,2,1); imagesc(img0(:,:,i)); axis equal;
+%     subplot(1,2,2); imagesc(gapimg(:,:,i)); axis equal;
+% end
+% GAPMSE = mse(gapimg(:)/max(gapimg(:)), img0(:)/max(img0(:)))
+
+% figure;
+% DispDic(reshape(D,B(1),B(2)*B(3),size(D,2)));
+
+
+
+%=========backup===========
+% % get mask for each patch
+% % H_3D = sparse(logical(patchRec.getPatches(sensingMask)));
+% H_3D = patchRec.getPatches(sensingMask);
+% H = zeros(Q,M3*Q,N);
+% for i=1:N;
+%     Hi = [];
+%     for j=1:M3 
+%         Hi = [ Hi, diag(H_3D((1:Q)+(j-1)*Q,i)) ]; 
+%     end
+%     H(:,:,i) = Hi;
+% end
+% 
+% [P,N] = size(X);
+% K = size(D0,2);
+% S = zeros(K*M3,N);
+% D = blkdiag(D0,D0,D0,D0);
+% tic
+% for i=1:N
+%     S(:,i) = OMP(H(:,:,i)*D, X(:,i), L);       
+% end
+% toc
+%=========backup===========
+
+
