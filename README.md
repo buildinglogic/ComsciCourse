@@ -25,4 +25,6 @@ Course related:
 	* constraint search and optimization
 
 # Comsci 590: Parallel Programming
-	
+	* poission image editing
+	* APSP-isomap-cuda-cilk
+	* Video compression
