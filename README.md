@@ -12,9 +12,17 @@ Course related:
 	*Markov
 
 # Comsci 310: Intro to Operating System
+	* heapmanager
+	* smashstack
+	* thread library
+	* raft consensus algorithm
  
 # Comsci 510: Operating System
+	* ROS (robot operating system)
+	* shell
 
 # Comsci 570: Artificial Intelligence
+	* constraint search and optimization
 
 # Comsci 590: Parallel Programming
+	
