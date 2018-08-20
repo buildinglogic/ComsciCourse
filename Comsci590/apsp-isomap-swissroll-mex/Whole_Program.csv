@@ -1,0 +1,21 @@
+Cilkview Scalability Analysis for Whole Program
+Executed command: /home/kl186/apsp-isomap-swissroll-mex/calculateMatrix
+Ideal Parallelism,1.000764
+
+# Cores,Burdened Parallelism,Measured Parallelism
+1,1.000000,1.000000
+2,0.709052,0.923077
+3,0.646366,
+4,0.619003,0.923077
+5,0.603670,
+6,0.593863,
+7,0.587051,
+8,0.582043,0.750000
+9,0.578208,
+10,0.575175,
+11,0.572717,
+12,0.570685,
+13,0.568977,
+14,0.567521,
+15,0.566265,
+16,0.565171,0.198347
